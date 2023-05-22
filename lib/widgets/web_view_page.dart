@@ -25,11 +25,15 @@ class WebViewPageState extends State<WebViewPage> {
           print('progress----------$progress');
         },
         onPageStarted: (String url) {
-          _isLoading = true;
+          setState(() {
+            _isLoading = true;
+          });
           print('Started-------$url -- $_isLoading');
         },
         onPageFinished: (String url) {
-          _isLoading = false;
+          setState(() {
+            _isLoading = false;
+          });
           print('Finished--------$url -- $_isLoading');
         },
         onWebResourceError: (WebResourceError request) {},
@@ -68,12 +72,14 @@ class WebViewPageState extends State<WebViewPage> {
         appBar: null,
         backgroundColor: const Color(0xFF666666),
         body: Stack(children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: double.infinity,
-            color: Colors.white,
-            alignment: Alignment.topCenter,
-            child: WebViewWidget(controller: controller),
+          SafeArea(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: double.infinity,
+              color: Colors.white,
+              alignment: Alignment.topCenter,
+              child: WebViewWidget(controller: controller),
+            ),
           ),
           // _isLoading ? const CenteredCircularProgressIndicator() : const Stack()
           Visibility(
